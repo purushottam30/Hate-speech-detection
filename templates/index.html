@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hate Speech Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Hate Speech Detection</h1>
+        <form action="/predict" method="post">
+            <div class="form-group">
+                <label for="message">Enter your message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="primary-button">Predict</button>
+        </form>
+        {% if prediction %}
+            <div class="result">
+                <h2>Predictions:</h2>
+                <ul>
+                    {% for model, pred in prediction.items() %}
+                        <li>{{ model }}: {{ pred }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <a href="/metrics" class="secondary-button">View Evaluation Metrics</a>
+    </div>
+</body>
+</html>
